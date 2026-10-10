@@ -27,6 +27,32 @@ Building blocks combine by *superposition*: stack the states, put $G$ blocks on 
 and concatenate the $F$ vectors. That's how "level + seasonal" is built here.
 """, expanded=True)
 
+ui.concept(r"""
+| Symbol | Meaning |
+|---|---|
+| $t = 1,\dots,T$ | time index / number of observations |
+| $y_t$ | observed data at time $t$ |
+| $\theta_t$ | **hidden state vector** — the model's unobserved parameters at time $t$ |
+| $F_t$ | **observation vector/matrix** — maps the state $\theta_t$ to the mean of $y_t$ |
+| $G$ | **evolution matrix** — maps $\theta_{t-1}$ to $\theta_t$ |
+| $v_t \sim N(0, V)$ | observation noise |
+| $w_t \sim N(0, W)$ | state evolution noise (shocks to the state) |
+| $V$ | observation noise **variance** |
+| $W$ | state evolution noise **covariance matrix** |
+| $a_t,\ R_t$ | **prior** (predicted) mean/covariance of $\theta_t$ given $y_{1:t-1}$ |
+| $f_t,\ Q_t$ | **forecast** mean/variance of $y_t$ given $y_{1:t-1}$ |
+| $e_t = y_t - f_t$ | one-step forecast error (the "surprise", aka innovation) |
+| $K_t$ | **Kalman gain** — how much the surprise moves the state estimate |
+| $m_t,\ C_t$ | **filtered** (posterior) mean/covariance of $\theta_t$ given $y_{1:t}$ |
+| $s_t,\ S_t$ | **smoothed** mean/covariance of $\theta_t$ given the *whole* series $y_{1:T}$ |
+| $B_t$ | smoother gain (RTS recursion) |
+| $\delta$ | discount factor — an alternative, unit-free way to set $W$ |
+| $\psi = (V, W)$ | the unknown variances, estimated by MLE or sampled in the Bayesian page |
+| $\alpha_0,\ \beta_0$ | inverse-gamma prior hyperparameters used by the Gibbs sampler |
+
+This notation is shared across every page in the app — refer back here if a symbol looks unfamiliar.
+""", title="📖 Notation reference", expanded=False)
+
 c1, c2, c3 = st.columns([1.2, 1.2, 1])
 with c1:
     st.markdown("**G** (evolution)")
